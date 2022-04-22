@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib import pyplot
+import numpy as np
+
+#pip install openpyxl
+
+df=pd.read_excel(r'D:\Derivatives Trading\DeriP.xlsx')
+
+sample_timeseries_data ={'Date':df["Date"], 'PnL':df["PnL"], 'VIX':df["VIX"]}
+
+dataframe = pd.DataFrame(
+  sample_timeseries_data,columns=[
+    'Date', 'PnL', 'VIX'])
+
+dataframe["Date"] = dataframe["Date"].astype("datetime64")
+dataframe = dataframe.set_index("Date")
+dataframe
+
+
+x= df["Date"]
+y1 =df["PnL"]
+y2 = df["VIX"]
+
+fig, ax1 = plt.subplots()
+ax2 = ax1.twinx()
+ax1.plot(x, y1, 'royalblue')
+ax2.plot(x, y2, 'violet')
+
+ax1.set_xlabel('Date')
+ax1.set_ylabel('PnL (Index: Base = 100)', color='royalblue')
+ax2.set_ylabel('VIX', color='violet')
+plt.show()
